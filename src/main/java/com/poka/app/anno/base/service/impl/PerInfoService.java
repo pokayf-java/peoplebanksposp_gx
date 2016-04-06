@@ -5,8 +5,6 @@ import java.util.List;
 import org.hibernate.Query;
 import org.springframework.stereotype.Service;
 
-import com.poka.app.anno.enity.BranchInfo;
-import com.poka.app.anno.enity.BranchInfoPK;
 import com.poka.app.anno.enity.PerInfo;
 
 @Service

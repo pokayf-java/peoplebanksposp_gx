@@ -1,26 +1,21 @@
 package com.poka.app.anno.enity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.poka.app.enumtype.BooleanEnum;
-import com.poka.app.enumtype.OrderKind;
 import com.poka.app.enumtype.StateType;
 
 @Entity
@@ -37,7 +32,8 @@ public class PayOrder implements Serializable {
 	private String fromUnitId;
 	private Date orderDate;
 	private Date bussinessDate;
-	private Double orderMoney;
+//	private Double orderMoney;
+	private Integer orderMoney;
 	private Integer orderKind;
 	private StateType orderState;
 	private String orderEmpId;
@@ -170,10 +166,10 @@ public class PayOrder implements Serializable {
 	}
 	
 	@Column(name = "OrderMoney")
-	public Double getOrderMoney() {
+	public Integer getOrderMoney() {
 		return orderMoney;
 	}
-	public void setOrderMoney(Double orderMoney) {
+	public void setOrderMoney(Integer orderMoney) {
 		this.orderMoney = orderMoney;
 	}
 	

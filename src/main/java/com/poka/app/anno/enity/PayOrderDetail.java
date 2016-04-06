@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
@@ -22,7 +20,8 @@ public class PayOrderDetail implements Serializable {
 	private String orderId;
 	private String currencyId;
 	private Integer currencyKind;
-	private Double currencyMoney;
+//	private Double currencyMoney;
+	private Integer currencyMoney;
 	private Integer bagCount;
 	private Integer bundleCount;
 	private Integer detailState;
@@ -100,10 +99,10 @@ public class PayOrderDetail implements Serializable {
 	}
 	
 	@Column(name = "CurrencyMoney",length=8)
-	public Double getCurrencyMoney() {
+	public Integer getCurrencyMoney() {
 		return currencyMoney;
 	}
-	public void setCurrencyMoney(Double currencyMoney) {
+	public void setCurrencyMoney(Integer currencyMoney) {
 		this.currencyMoney = currencyMoney;
 	}
 	

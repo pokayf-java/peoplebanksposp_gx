@@ -7,8 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
@@ -29,7 +27,8 @@ public class PayBag implements Serializable {
 	private String detailId;
 	private String currencyId;
 	private Integer currencyKind;
-	private Double bagMoney;
+//	private Double bagMoney;
+	private Integer bagMoney;
 	private String casingId;
 	private String countId;
 	private String bagId;
@@ -133,10 +132,10 @@ public class PayBag implements Serializable {
 	}
 	
 	@Column(name = "BagMoney")
-	public Double getBagMoney() {
+	public Integer getBagMoney() {
 		return bagMoney;
 	}
-	public void setBagMoney(Double bagMoney) {
+	public void setBagMoney(Integer bagMoney) {
 		this.bagMoney = bagMoney;
 	}
 	

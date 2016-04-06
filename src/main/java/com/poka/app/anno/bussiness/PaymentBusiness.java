@@ -9,8 +9,8 @@ import com.poka.app.anno.base.service.impl.OrderInfoService;
 import com.poka.app.vo.PaymentVo;
 
 @Component
-public class PaymentBussiness {
-	Logger logger = Logger.getLogger(PaymentBussiness.class);
+public class PaymentBusiness {
+	Logger logger = Logger.getLogger(PaymentBusiness.class);
 	private OrderInfoService orderInfoService;
 
 	@Autowired

@@ -1,5 +1,7 @@
 package com.poka.app.anno.bussiness;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -16,8 +18,8 @@ import com.poka.app.anno.enity.BranchInfoPK;
 import com.poka.app.anno.enity.PerInfo;
 
 @Component
-public class PerInfoAndBranchBussiness {
-	Logger logger = Logger.getLogger(PerInfoAndBranchBussiness.class);
+public class PerInfoAndBranchBusiness {
+	Logger logger = Logger.getLogger(PerInfoAndBranchBusiness.class);
 	private PerInfoService perInfoService;
 	private BranchInfoService branchInfoService;
 	
@@ -59,6 +61,7 @@ public class PerInfoAndBranchBussiness {
 			perInfoService.save(tem);
 		}
 		perInfoService.flush();
+		logger.info("机具表数据同步成功！("+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())+")");
 		return true;
 	}
 	
@@ -89,6 +92,7 @@ public class PerInfoAndBranchBussiness {
 			branchInfoService.save(tem);
 		}
 		branchInfoService.flush();
+		logger.info("网点表数据同步成功！("+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())+")");
 		return true;
 	}
 }

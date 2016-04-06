@@ -9,20 +9,17 @@ import org.springframework.stereotype.Component;
 
 import com.poka.app.anno.base.service.impl.BankInfoService;
 import com.poka.app.anno.base.service.impl.OrderInfoService;
-import com.poka.app.anno.enity.BankInfo;
 import com.poka.app.anno.enity.OrderInfo;
-import com.poka.app.anno.enity.ReserveDetail;
 import com.poka.app.cb.ws.ICBPospSW;
 import com.poka.app.enumtype.OrderType;
 import com.poka.app.enumtype.StateType;
-import com.poka.app.pb.ws.IPBPospSW;
 import com.poka.app.util.CxfUtil;
 import com.poka.app.vo.AppointmenResult;
 import com.poka.app.vo.AppointmentVo;
 
 @Component
-public class AppointmentBussiness {
-	Logger logger = Logger.getLogger(AppointmentBussiness.class);
+public class AppointmentBusiness {
+	Logger logger = Logger.getLogger(AppointmentBusiness.class);
 	private OrderInfoService orderInfoService;
 	private BankInfoService bankInfoService;
 

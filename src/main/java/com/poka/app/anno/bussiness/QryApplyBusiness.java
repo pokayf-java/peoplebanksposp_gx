@@ -9,8 +9,8 @@ import com.poka.app.anno.base.service.impl.OrderInfoService;
 import com.poka.app.anno.enity.QryApply;
 
 @Component
-public class QryApplyBussiness {
-	Logger logger = Logger.getLogger(QryApplyBussiness.class);
+public class QryApplyBusiness {
+	Logger logger = Logger.getLogger(QryApplyBusiness.class);
 	private OrderInfoService orderInfoService;
 
 	@Autowired

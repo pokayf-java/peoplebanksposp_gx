@@ -39,7 +39,8 @@
 		<!-- 设置数据库密码 -->
 		<property name="password" value="${jdbc.password}" />
 		<!-- 设置连接池初始值 -->
-		<property name="initialPoolSize" value="5" />
+		<property name="initialPoolSize" value="20" />
+		<property name="checkoutTimeout" value="20000" />
 	</bean>
 
 	<!-- 配置sessionFactory -->
@@ -133,6 +134,7 @@
 
 	<!-- 要调用的工作类(quartzJob是com.kay.quartz.QuartzJob的实例化) -->
 	<bean id="quartzJob" class="com.poka.app.quartz.JobQuartz"></bean>
+	<bean id="doDeleteLogsJob" class="com.poka.app.quartz.DoDeleteLogsJob"></bean>
 	<!-- 定义调用对象和调用对象的方法 -->
 
 
@@ -142,26 +144,46 @@
 		<property name="targetMethod" value="work" />
 	</bean>
 
+	<bean id="jobDoDelLogsDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="doDeleteLogsJob" />
+		<property name="targetMethod" value="work" />
+	</bean>
+
 	<!-- 定义触发时间 -->
 
+	<!-- CronTriggerFactoryBean:定义时间点（如：12:00）（cronExpression） SimpleTriggerFactoryBean:定义一个（循环）时间（如：5分钟）（repeatInterval） -->
+	<!-- "0 0 12 * * ?" 每天中午12点触发 -->
+	<!--"0 15 10 ? * *" 每天上午10:15触发 -->
+	<!--"0 15 10 * * ?" 每天上午10:15触发 -->
 	<bean id="simpleTrigger"
-		class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<!-- see the example of method invoking job above -->
 		<property name="jobDetail" ref="jobDetail" />
 		<!-- 1 seconds -->
 		<property name="startDelay" value="1000" />
-		<!-- repeat every 60 seconds -->
-		<property name="repeatInterval" value="60000" />
+		<!-- repeat every 60 seconds <property name="repeatInterval" value="60000" 
+			/> -->
+		<!-- 每天凌晨一点执行 -->
+		<property name="cronExpression" value="0 45 18 * * ?"></property>
+	</bean>
+
+	<bean id="doDelLogsTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<!-- see the example of method invoking job above -->
+		<property name="jobDetail" ref="jobDoDelLogsDetail" />
+		<!-- 1 seconds -->
+		<property name="startDelay" value="1000" />
+		<!-- 每天凌晨一点执行 -->
+		<property name="cronExpression" value="30 14 19 L * ?"></property>
 	</bean>
 
 	<bean id="startQuertz" lazy-init="false" autowire="no"
 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		<!-- <property name="dataSource" ref="dataSource" /> -->
-		<!-- <property name="applicationContextSchedulerContextKey" value="applicationContextKey" 
-			/> -->
 		<property name="triggers">
 			<list>
 				<ref bean="simpleTrigger" />
+				<ref bean="doDelLogsTrigger" />
 			</list>
 		</property>
 		<property name="jobFactory">
@@ -169,11 +191,8 @@
 		</property>
 	</bean>
 
-	<!-- <bean id="appointment" class="com.poka.app.anno.bussiness.AppointmentBussiness"></bean> -->
 
-	<bean id="pBPospSW" class="com.poka.app.pb.ws.impl.PBPospSW">
-		<!-- <property name="appointmentBussiness" ref="appointment"></property> -->
-	</bean>
+	<bean id="pBPospSW" class="com.poka.app.pb.ws.impl.PBPospSW"></bean>
 	<jaxws:endpoint id="pbPospService" implementor="#pBPospSW"
 		address="/pbService">
 		<jaxws:inInterceptors>

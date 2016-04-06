@@ -5,8 +5,6 @@ package com.poka.app.util;
 import org.apache.cxf.tools.java2ws.JavaToWS;
 
 import com.poka.app.cb.ws.ICBPospSW;
-import com.poka.app.pb.ws.IPBPospSW;
-import com.poka.app.pb.ws.impl.PBPospSW;
 
 
 public class Java2WSDLUtil {  
