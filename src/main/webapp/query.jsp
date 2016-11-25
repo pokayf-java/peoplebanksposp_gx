@@ -18,12 +18,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/blue/query.css">
 		<script src="${pageContext.request.contextPath}/js/jquery-1.7.2.js"></script>
 		<script>
-		function date2str(x,y) {
-			 var z = {M:x.getMonth()+1,d:x.getDate(),h:x.getHours(),m:x.getMinutes(),s:x.getSeconds()};
-			 y = y.replace(/(M+|d+|h+|m+|s+)/g,function(v) {return ((v.length>1?"0":"")+eval('z.'+v.slice(-1))).slice(-2)});
-			 return y.replace(/(y+)/g,function(v) {return x.getFullYear().toString().slice(-v.length)});
-		}
-		
 		//聚焦冠字号文本框
 		window.onload = function(){
 			document.getElementById("dealNo").focus();
@@ -45,7 +39,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var dealNo = (document.getElementById("dealNo").value).replace(/\s+/g,""); 
 			document.getElementById("dealNo").value = dealNo;
 	  	 	var errInfo = document.getElementById("errorInfo");
-	  	 
 			if(dealNo == ""){
 				errInfo.innerHTML = "<font style='color:red; font-size:12px;'>冠字号码不能为空，请输入冠字号！</font>";
 				document.getElementById("dealNo").focus();
@@ -309,8 +302,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div  style="padding-top: 15px;">
 					<h1 ><font size="6"  color="#FFFFFF" face="华文楷体">&nbsp;南宁中心支行&nbsp;</font><font size="4"  color="#FFFFFF"  face="华文楷体">人民币冠字号码查询信息管理系统欢迎您</font></h1>
 				</div>
-				
-				<form action="" id="form" name="form" method="post" style="padding-top: 230px;">
+				<form action="GZHQueryServlet" id="form" name="form" method="post" style="padding-top: 230px;">
 					<div  style='width:100%' align = "center">
 					<table style="height: 70px; " align="center" cellpadding="0" >
 						<tr>
