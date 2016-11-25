@@ -8,20 +8,21 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
-@Table(name = "OrderDetail")
+@Table(name = "ORDERDETAIL")
 @IdClass(value = PayOrderDetailPK.class)
 public class PayOrderDetail implements Serializable {
 	
-	private Integer id;
+//	private Integer did;
 	private String detailId;
 	private String provId;
 	private String unitId;
 	private String orderId;
 	private String currencyId;
 	private Integer currencyKind;
-//	private Double currencyMoney;
-	private Integer currencyMoney;
+//	private Integer currencyMoney;
+	private Double currencyMoney;
 	private Integer bagCount;
 	private Integer bundleCount;
 	private Integer detailState;
@@ -29,23 +30,23 @@ public class PayOrderDetail implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "PayOrderDetail [id=" + id + ", detailId=" + detailId
+		return "PayOrderDetail [detailId=" + detailId
 				+ ", provId=" + provId + ", unitId=" + unitId + ", orderId="
 				+ orderId + ", currencyId=" + currencyId + ", currencyKind="
 				+ currencyKind + ", currencyMoney=" + currencyMoney
 				+ ", bagCount=" + bagCount + ", bundleCount=" + bundleCount
 				+ ", detailState=" + detailState + "]";
 	}
-	@Id
-	@Column(name = "Did")
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+//	@Id
+//	@Column(name = "DID")
+//	public Integer getDid() {
+//		return did;
+//	}
+//	public void setDid(Integer did) {
+//		this.did = did;
+//	}
 	
-	@Column(name = "DetailId",length=20)
+	@Column(name = "DETAILID",length=20)
 	public String getDetailId() {
 		return detailId;
 	}
@@ -54,7 +55,7 @@ public class PayOrderDetail implements Serializable {
 	}
 	
 	@Id
-	@Column(name = "ProvId",length=2)
+	@Column(name = "PROVID",length=2)
 	public String getProvId() {
 		return provId;
 	}
@@ -63,7 +64,7 @@ public class PayOrderDetail implements Serializable {
 	}
 	
 	@Id
-	@Column(name = "UnitId",length=4)
+	@Column(name = "UNITID",length=4)
 	public String getUnitId() {
 		return unitId;
 	}
@@ -72,7 +73,7 @@ public class PayOrderDetail implements Serializable {
 	}
 	
 	@Id
-	@Column(name = "OrderId",length=20)
+	@Column(name = "ORDERID",length=20)
 	public String getOrderId() {
 		return orderId;
 	}
@@ -81,7 +82,7 @@ public class PayOrderDetail implements Serializable {
 	}
 	
 	@Id
-	@Column(name = "CurrencyId",length=2)
+	@Column(name = "CURRENCYID",length=2)
 	public String getCurrencyId() {
 		return currencyId;
 	}
@@ -90,7 +91,7 @@ public class PayOrderDetail implements Serializable {
 	}
 	
 	@Id
-	@Column(name = "CurrencyKind",length=4)
+	@Column(name = "CURRENCYKIND")
 	public Integer getCurrencyKind() {
 		return currencyKind;
 	}
@@ -98,15 +99,15 @@ public class PayOrderDetail implements Serializable {
 		this.currencyKind = currencyKind;
 	}
 	
-	@Column(name = "CurrencyMoney",length=8)
-	public Integer getCurrencyMoney() {
+	@Column(name = "CURRENCYMONEY")
+	public Double getCurrencyMoney() {
 		return currencyMoney;
 	}
-	public void setCurrencyMoney(Integer currencyMoney) {
+	public void setCurrencyMoney(Double currencyMoney) {
 		this.currencyMoney = currencyMoney;
 	}
 	
-	@Column(name = "BagCount",length=4)
+	@Column(name = "BAGCOUNT")
 	public Integer getBagCount() {
 		return bagCount;
 	}
@@ -114,7 +115,7 @@ public class PayOrderDetail implements Serializable {
 		this.bagCount = bagCount;
 	}
 	
-	@Column(name = "BundleCount",length=4)
+	@Column(name = "BUNDLECOUNT")
 	public Integer getBundleCount() {
 		return bundleCount;
 	}
@@ -122,7 +123,7 @@ public class PayOrderDetail implements Serializable {
 		this.bundleCount = bundleCount;
 	}
 	
-	@Column(name = "DetailState",length=4)
+	@Column(name = "DETAILSTATE")
 	public Integer getDetailState() {
 		return detailState;
 	}

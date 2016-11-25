@@ -19,7 +19,7 @@ import com.poka.app.enumtype.BooleanEnum;
 @Table(name = "Bags")
 @IdClass(value = PayBagPK.class)
 public class PayBag implements Serializable {
-	private Integer id;
+//	private Integer id;
 	private String provId;
 	private String unitId;
 	private String bagCode;
@@ -27,8 +27,8 @@ public class PayBag implements Serializable {
 	private String detailId;
 	private String currencyId;
 	private Integer currencyKind;
-//	private Double bagMoney;
-	private Integer bagMoney;
+//	private Integer bagMoney;
+	private Double bagMoney;
 	private String casingId;
 	private String countId;
 	private String bagId;
@@ -49,7 +49,7 @@ public class PayBag implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "PayBag [id=" + id + ", provId=" + provId + ", unitId=" + unitId
+		return "PayBag [provId=" + provId + ", unitId=" + unitId
 				+ ", bagCode=" + bagCode + ", orderId=" + orderId
 				+ ", detailId=" + detailId + ", currencyId=" + currencyId
 				+ ", currencyKind=" + currencyKind + ", bagMoney=" + bagMoney
@@ -62,14 +62,14 @@ public class PayBag implements Serializable {
 				+ writeCount + ", dealScanID=" + dealScanID + ", isOk=" + isOk
 				+ "]";
 	}
-	@Id
-	@Column(name = "Did")
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+//	@Id
+//	@Column(name = "Did")
+//	public Integer getId() {
+//		return id;
+//	}
+//	public void setId(Integer id) {
+//		this.id = id;
+//	}
 	
 	@Id
 	@Column(name = "ProvId",length=2)
@@ -132,10 +132,10 @@ public class PayBag implements Serializable {
 	}
 	
 	@Column(name = "BagMoney")
-	public Integer getBagMoney() {
+	public Double getBagMoney() {
 		return bagMoney;
 	}
-	public void setBagMoney(Integer bagMoney) {
+	public void setBagMoney(Double bagMoney) {
 		this.bagMoney = bagMoney;
 	}
 	

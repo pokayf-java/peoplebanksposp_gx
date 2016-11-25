@@ -16,9 +16,6 @@ import com.poka.app.anno.base.dao.impl.QryApplyDao;
 import com.poka.app.anno.base.dao.impl.ReserveDetailDao;
 import com.poka.app.anno.base.dao.impl.ReserveMainDao;
 import com.poka.app.anno.enity.OrderInfo;
-import com.poka.app.anno.enity.PayBag;
-import com.poka.app.anno.enity.PayBundle;
-import com.poka.app.anno.enity.PayOrderDetail;
 import com.poka.app.anno.enity.QryApply;
 import com.poka.app.anno.enity.ReserveDetail;
 import com.poka.app.anno.enity.ReserveMain;
@@ -116,7 +113,9 @@ public class OrderInfoService extends BaseService<OrderInfo, Integer> {
 		if(appointment == null) return false;
 		reserveMainDao.save(appointment.getReserveMain());
 		for(ReserveDetail o:appointment.getReserveDetails()){
-			o.setFid(null);
+			if(null != o.getFid()){
+				o.setFid(null);
+			}
 		}
 		reserveDetailDao.saveLosts(appointment.getReserveDetails());
 		return true;
@@ -125,17 +124,17 @@ public class OrderInfoService extends BaseService<OrderInfo, Integer> {
 	public boolean savePaymentVo(PaymentVo payment){
 		if(payment == null)return false;
 		payOrderDao.save(payment.getPayOrder());
-		for(PayOrderDetail o:payment.getPayOrderDetails()){
-			o.setId(null);
-		}
+//		for(PayOrderDetail o:payment.getPayOrderDetails()){
+//			o.setDid(null);
+//		}
 		payOrderDetailDao.saveLosts(payment.getPayOrderDetails());
-		for(PayBag o:payment.getPayBags()){
-			o.setId(null);
-		}
+//		for(PayBag o:payment.getPayBags()){
+//			o.setId(null);
+//		}
 		payBagDao.saveLosts(payment.getPayBags());
-		for(PayBundle o:payment.getPayBundles()){
-			o.setId(null);
-		}
+//		for(PayBundle o:payment.getPayBundles()){
+//			o.setId(null);
+//		}
 		payBundleDao.saveLosts(payment.getPayBundles());
 		return true;
 	}

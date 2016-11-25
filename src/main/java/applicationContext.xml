@@ -5,23 +5,25 @@
 	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:cache="http://www.springframework.org/schema/cache"
 	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans   
-    http://www.springframework.org/schema/beans/spring-beans.xsd  
-    http://www.springframework.org/schema/context  
-    http://www.springframework.org/schema/context/spring-context.xsd 
-    http://cxf.apache.org/jaxws   
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://cxf.apache.org/jaxws
     http://cxf.apache.org/schemas/jaxws.xsd
     http://www.springframework.org/schema/tx
     http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-    http://www.springframework.org/schema/cache  
+    http://www.springframework.org/schema/cache
     http://www.springframework.org/schema/cache/spring-cache-4.0.xsd
     http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
-
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 	<!-- <import resource="classpath:META-INF/cxf/cxf-extension-xml.xml" /> -->
+	
+	<!-- <import resource="classpath:META-INF/cxf/cxf-extension-http.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" /> -->
 
 
 	<!-- 引入properties文件 -->
@@ -38,9 +40,8 @@
 		<property name="user" value="${jdbc.username}" />
 		<!-- 设置数据库密码 -->
 		<property name="password" value="${jdbc.password}" />
-		<!-- 设置连接池初始值 -->
-		<property name="initialPoolSize" value="20" />
-		<property name="checkoutTimeout" value="20000" />
+		<!-- 设置连接池初始值
+		<property name="initialPoolSize" value="5" /> -->
 	</bean>
 
 	<!-- 配置sessionFactory -->
@@ -53,13 +54,13 @@
 		<property name="hibernateProperties">
 			<value>
 				<!-- 设置数据库方言 -->
-				hibernate.dialect=org.hibernate.dialect.OracleDialect
+				hibernate.dialect=org.hibernate.dialect.DB2Dialect
 				<!-- 设置自动创建|更新|验证数据库表结构 -->
 				hibernate.hbm2ddl.auto=update
 				<!-- 是否在控制台显示sql -->
-				hibernate.show_sql=false
+				hibernate.show_sql=true
 				<!-- 是否格式化sql，优化显示 -->
-				hibernate.format_sql=false
+				hibernate.format_sql=true
 				<!-- 是否开启二级缓存 -->
 				hibernate.cache.use_second_level_cache=false
 				<!-- 是否开启查询缓存 -->
@@ -157,15 +158,13 @@
 	<!--"0 15 10 ? * *" 每天上午10:15触发 -->
 	<!--"0 15 10 * * ?" 每天上午10:15触发 -->
 	<bean id="simpleTrigger"
-		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
 		<!-- see the example of method invoking job above -->
 		<property name="jobDetail" ref="jobDetail" />
 		<!-- 1 seconds -->
 		<property name="startDelay" value="1000" />
-		<!-- repeat every 60 seconds <property name="repeatInterval" value="60000" 
-			/> -->
-		<!-- 每天凌晨一点执行 -->
-		<property name="cronExpression" value="0 45 18 * * ?"></property>
+		<!-- repeat every 60 seconds-->
+		<property name="repeatInterval" value="300000"/> 
 	</bean>
 
 	<bean id="doDelLogsTrigger"
@@ -174,8 +173,7 @@
 		<property name="jobDetail" ref="jobDoDelLogsDetail" />
 		<!-- 1 seconds -->
 		<property name="startDelay" value="1000" />
-		<!-- 每天凌晨一点执行 -->
-		<property name="cronExpression" value="30 14 19 L * ?"></property>
+		<property name="cronExpression" value="0 0 5 L * ?"></property>
 	</bean>
 
 	<bean id="startQuertz" lazy-init="false" autowire="no"
@@ -193,8 +191,7 @@
 
 
 	<bean id="pBPospSW" class="com.poka.app.pb.ws.impl.PBPospSW"></bean>
-	<jaxws:endpoint id="pbPospService" implementor="#pBPospSW"
-		address="/pbService">
+	<jaxws:endpoint id="pbPospService" implementor="#pBPospSW" address="/pbService">
 		<jaxws:inInterceptors>
 			<bean class="org.apache.cxf.interceptor.LoggingInInterceptor" />
 		</jaxws:inInterceptors>
@@ -206,4 +203,4 @@
 	<!-- 工具bean -->
 	<bean id="cxfUtil" class="com.poka.app.util.CxfUtil"></bean>
 
-</beans>  
+</beans>

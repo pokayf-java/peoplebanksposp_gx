@@ -8,7 +8,7 @@ public class AppointmenResult implements Serializable {
 	private String checkRemark;
 	private String bankId;
 	
-
+	public AppointmenResult(){}
 	@Override
 	public String toString() {
 		return "AppointmenResult [orderId=" + orderId + ", state=" + state

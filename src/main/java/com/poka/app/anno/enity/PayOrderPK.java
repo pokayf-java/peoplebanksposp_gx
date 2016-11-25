@@ -2,28 +2,23 @@ package com.poka.app.anno.enity;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 public class PayOrderPK implements Serializable {
 
-	private Integer id;
+	// private Integer id;
 	private String provId;
 	private String unitId;
 	private String orderId;
-	
-	@Id
-	@Column(name = "Did")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	// @Id
+	// @Column(name = "Did")
+	// @GeneratedValue(strategy = GenerationType.AUTO)
+	// public Integer getId() {
+	// return id;
+	// }
+
+	// public void setId(Integer id) {
+	// this.id = id;
+	// }
 
 	public String getProvId() {
 		return provId;
@@ -50,21 +45,20 @@ public class PayOrderPK implements Serializable {
 	}
 
 	@Override
-	public boolean equals(Object obj){
-		if(obj instanceof PayOrderPK){
-			PayOrderPK pk = (PayOrderPK)obj;
-			if(pk.getId() == this.id 
-					&& pk.getProvId().equals(this.getProvId())
-					&& pk.getOrderId().equals(this.getOrderId())
-					&& pk.getUnitId().equals(this.getUnitId())){
+	public boolean equals(Object obj) {
+		if (obj instanceof PayOrderPK) {
+			PayOrderPK pk = (PayOrderPK) obj;
+			// if(pk.getId() == this.id
+			if (pk.getProvId().equals(this.getProvId()) && pk.getOrderId().equals(this.getOrderId())
+					&& pk.getUnitId().equals(this.getUnitId())) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	@Override
-	public int hashCode(){
+	public int hashCode() {
 		return this.getOrderId().hashCode();
 	}
 }

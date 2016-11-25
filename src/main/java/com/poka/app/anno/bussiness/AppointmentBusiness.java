@@ -82,6 +82,7 @@ public class AppointmentBusiness {
 						StateType.SENDED);
 			}else{
 				logger.info("处理預約取款结果订单:" + orderId+"  失败");
+				continue;
 			}
 			try {
 				Thread.sleep(50000);
@@ -93,7 +94,7 @@ public class AppointmentBusiness {
 	
 	
 	public boolean makeAppointment(AppointmentVo appointment){	
-		logger.info("正在处理预约交款信息");
+		logger.info("正在处理预约取款信息");
 		return orderInfoService.saveAppointmentVo(appointment);
 	}
 }

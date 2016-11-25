@@ -8,6 +8,7 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 
 import com.poka.app.anno.enity.MonRule;
+import com.poka.app.anno.enity.MoneyDataInfo;
 import com.poka.app.vo.AppointmenResult;
 
 @WebService
@@ -19,5 +20,9 @@ public interface ICBPospSW {
 	@WebMethod(operationName = "sendMonRuleData")
 	@WebResult(name = "result")
 	public boolean sendMonRuleData(@WebParam(name = "monRuleList") List<MonRule> monRuleList);
+	
+	@WebMethod(operationName = "selectGZHData")
+	@WebResult(name = "result")
+	public List<MoneyDataInfo> selectGZHData(@WebParam(name = "mon") String mon);
 
 }

@@ -127,6 +127,9 @@ public interface IBaseDao<T, PK extends Serializable> {
 	 */
 	public Query createQuery(final String queryString,
 			final Map<String, ?> values);
+	
+	
+	public int excuteBySql(String sql);
 
 	/**
 	 * 按Criteria查询对象列表.

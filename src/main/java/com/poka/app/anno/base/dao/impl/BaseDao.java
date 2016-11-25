@@ -8,6 +8,7 @@ import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
@@ -43,8 +44,7 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 	 * eg. SimpleHibernateDao<User, Long> userDao = new SimpleHibernateDao<User,
 	 * Long>(sessionFactory, User.class);
 	 */
-	public BaseDao(final SessionFactory sessionFactory,
-			final Class<T> entityClass) {
+	public BaseDao(final SessionFactory sessionFactory, final Class<T> entityClass) {
 		this.sessionFactory = sessionFactory;
 		this.entityClass = entityClass;
 	}
@@ -150,8 +150,7 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 	 */
 	public List<T> findByProperty(final String propertyName, final Object value) {
 		Assert.hasText(propertyName, "propertyName不能为空");
-		Criterion criterion = Restrictions.like(propertyName, (String) value,
-				MatchMode.ANYWHERE);
+		Criterion criterion = Restrictions.like(propertyName, (String) value, MatchMode.ANYWHERE);
 		return find(criterion);
 	}
 
@@ -161,8 +160,7 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 	@SuppressWarnings("unchecked")
 	public T findUniqueByProperty(final String propertyName, final Object value) {
 		Assert.hasText(propertyName, "propertyName不能为空");
-		Criterion criterion = Restrictions.like(propertyName, (String) value,
-				MatchMode.ANYWHERE);
+		Criterion criterion = Restrictions.like(propertyName, (String) value, MatchMode.ANYWHERE);
 		return (T) createCriteria(criterion).uniqueResult();
 	}
 
@@ -262,14 +260,26 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 	 * @param values
 	 *            命名参数,按名称绑定.
 	 */
-	public Query createQuery(final String queryString,
-			final Map<String, ?> values) {
+	public Query createQuery(final String queryString, final Map<String, ?> values) {
 
 		Query query = getSession().createQuery(queryString);
 		if (values != null) {
 			query.setProperties(values);
 		}
 		return query;
+	}
+
+	/**
+	 * 根据查询s与参数列表创建Query对象.
+	 * 
+	 * @param sql
+	 * @return
+	 */
+	public int excuteBySql(String sql) {
+		int result;
+		SQLQuery query = getSession().createSQLQuery(sql);
+		result = query.executeUpdate();
+		return result;
 	}
 
 	/**
@@ -359,8 +369,7 @@ public class BaseDao<T, PK extends Serializable> implements IBaseDao<T, PK> {
 	 * 
 	 * 在修改对象的情景下,如果属性新修改的值(value)等于属性原来的值(orgValue)则不作比较.
 	 */
-	public boolean isPropertyUnique(final String propertyName,
-			final Object newValue, final Object oldValue) {
+	public boolean isPropertyUnique(final String propertyName, final Object newValue, final Object oldValue) {
 		if (newValue == null || newValue.equals(oldValue)) {
 			return true;
 		}

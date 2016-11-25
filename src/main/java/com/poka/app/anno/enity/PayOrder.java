@@ -7,8 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
@@ -23,7 +21,7 @@ import com.poka.app.enumtype.StateType;
 @IdClass(value=PayOrderPK.class)
 public class PayOrder implements Serializable {
 	
-	private Integer id;
+//	private Integer id;
 	private String provId;
 	private String unitId;
 	private String orderId;
@@ -32,8 +30,8 @@ public class PayOrder implements Serializable {
 	private String fromUnitId;
 	private Date orderDate;
 	private Date bussinessDate;
-//	private Double orderMoney;
-	private Integer orderMoney;
+//	private Integer orderMoney;
+	private Double orderMoney;
 	private Integer orderKind;
 	private StateType orderState;
 	private String orderEmpId;
@@ -46,7 +44,7 @@ public class PayOrder implements Serializable {
 	
 @Override
 	public String toString() {
-		return "PayOrder [id=" + id + ", provId=" + provId + ", unitId="
+		return "PayOrder [provId=" + provId + ", unitId="
 				+ unitId + ", orderId=" + orderId + ", sourceId=" + sourceId
 				+ ", fromProvId=" + fromProvId + ", fromUnitId=" + fromUnitId
 				+ ", orderDate=" + orderDate + ", bussinessDate="
@@ -86,15 +84,15 @@ public class PayOrder implements Serializable {
 //	}
 //	
 //	
-	@Id
-	@Column(name = "Did")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+//	@Id
+//	@Column(name = "Did")
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+//	public Integer getId() {
+//		return id;
+//	}
+//	public void setId(Integer id) {
+//		this.id = id;
+//	}
 	
 	@Id
 	@Column(name = "ProvId",length=2)
@@ -166,10 +164,10 @@ public class PayOrder implements Serializable {
 	}
 	
 	@Column(name = "OrderMoney")
-	public Integer getOrderMoney() {
+	public Double getOrderMoney() {
 		return orderMoney;
 	}
-	public void setOrderMoney(Integer orderMoney) {
+	public void setOrderMoney(Double orderMoney) {
 		this.orderMoney = orderMoney;
 	}
 	

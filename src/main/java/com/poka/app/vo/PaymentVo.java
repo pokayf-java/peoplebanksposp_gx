@@ -15,7 +15,8 @@ public class PaymentVo implements Serializable {
       private List<PayBag> payBags;
       private List<PayBundle> payBundles;
       
-      
+    
+    public PaymentVo(){}
 	@Override
 	public String toString() {
 		return "PaymentVo [payOrder=" + payOrder + ", payOrderDetails="

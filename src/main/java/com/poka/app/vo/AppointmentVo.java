@@ -11,6 +11,7 @@ public class AppointmentVo implements Serializable {
 	private List<ReserveDetail> reserveDetails;
 	
 	
+	public AppointmentVo(){}
 	@Override
 	public String toString() {
 		return "AppointmentVo [reserveMain=" + reserveMain

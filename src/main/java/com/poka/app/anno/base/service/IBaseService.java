@@ -121,6 +121,9 @@ public interface IBaseService<T, PK extends Serializable> {
 	 */
 	public Query createQuery(final String queryString,
 			final Map<String, ?> values);
+	
+	
+	
 
 	/**
 	 * 按Criteria查询对象列表.

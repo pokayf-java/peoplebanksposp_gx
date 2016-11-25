@@ -15,9 +15,13 @@ import com.poka.app.anno.bussiness.NetCheckDailyRepBusiness;
 import com.poka.app.anno.bussiness.PaymentBusiness;
 import com.poka.app.anno.bussiness.PerInfoAndBranchBusiness;
 import com.poka.app.anno.bussiness.QryApplyBusiness;
+import com.poka.app.anno.bussiness.RfidScannerBusiness;
+import com.poka.app.anno.bussiness.TransferFlagBusiness;
 import com.poka.app.anno.enity.BagInfo;
 import com.poka.app.anno.enity.BankCheckDailyRepBak;
+import com.poka.app.anno.enity.BranchInfo;
 import com.poka.app.anno.enity.NetCheckDailyRepBak;
+import com.poka.app.anno.enity.PerInfo;
 import com.poka.app.anno.enity.QryApply;
 import com.poka.app.pb.ws.IPBPospSW;
 import com.poka.app.vo.AppointmentVo;
@@ -35,7 +39,19 @@ public class PBPospSW implements IPBPospSW {
 	private NetCheckDailyRepBusiness netCheckDailyRepBussiness;
 	private NetCheckDailyRepBakBusiness netCheckDailyRepBakBussiness;
 	private BagInfoBusiness bagInfoBusiness;
+	private RfidScannerBusiness rfidScannerBusiness;
+	private TransferFlagBusiness transferFlagBusiness;
 
+	@Autowired
+	public void setRfidScannerBusiness(RfidScannerBusiness rfidScannerBusiness) {
+		this.rfidScannerBusiness = rfidScannerBusiness;
+	}
+	
+	@Autowired
+	public void setTransferFlagBusiness(TransferFlagBusiness transferFlagBusiness) {
+		this.transferFlagBusiness = transferFlagBusiness;
+	}
+	
 	@Autowired
 	public void setBankCheckDailyRepBakBussiness(BankCheckDailyRepBakBusiness bankCheckDailyRepBakBussiness) {
 		this.bankCheckDailyRepBakBussiness = bankCheckDailyRepBakBussiness;
@@ -111,13 +127,13 @@ public class PBPospSW implements IPBPospSW {
 	}
 
 	@Override
-	public boolean getPerInfoData(String listData) {
-		return perInfoAndBranchBussiness.updatePerInfo(listData);
+	public boolean getPerInfoData(List<PerInfo> perInfoList) {
+		return perInfoAndBranchBussiness.updatePerInfo(perInfoList);
 	}
 
 	@Override
-	public boolean getBanchInfoData(String listData) {
-		return perInfoAndBranchBussiness.updateBranchInfo(listData);
+	public boolean getBranchInfoData(List<BranchInfo> branchInfoList) {
+		return perInfoAndBranchBussiness.updateBranchInfo(branchInfoList);
 	}
 
 	@Override
@@ -137,6 +153,23 @@ public class PBPospSW implements IPBPospSW {
 	public boolean sendBagInfo(List<BagInfo> bagInfoList) {
 		// TODO Auto-generated method stub
 		return bagInfoBusiness.updateBagInfo(bagInfoList);
+	}
+
+	@Override
+	public String getTagId(String tagId) {
+		return rfidScannerBusiness.doRfidScanner(tagId);
+	}
+
+	@Override
+	public boolean getConnectStatus(String connectStr) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean getTransferFlag(String transferInfo) {
+		// TODO Auto-generated method stub
+		return transferFlagBusiness.getTransferInfo(transferInfo);
 	}
 
 }

@@ -23,11 +23,11 @@ public class JobQuartz  {
 
 	public void work() {
 		
-		if(ConstantUtil.appointmentFlag.equals("Enabled")){
+		if(ConstantUtil.appointmentPeopFlag.trim().equals("Enabled")){
 			appointmentBussiness.handAppointment();
 		}
 		
-		if(ConstantUtil.monRuleFlag.equals("Enabled")){
+		if(ConstantUtil.monRuleFlag.trim().equals("Enabled")){
 			monRuleBussiness.sendMonRuleData();
 		}
 		
