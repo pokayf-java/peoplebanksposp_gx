@@ -141,7 +141,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  	 				resultStr[i].causeInfo = "网络连接异常";
 			  	 			}
 			  	 			if( resultStr[i].causeInfo == 2 ){
-			  	 				resultStr[i].causeInfo = "连接超时";
+			  	 				resultStr[i].causeInfo = "查询超时";
 			  	 			}
 			  	 			if( resultStr[i].causeInfo == 3 ){
 			  	 				resultStr[i].causeInfo = "未查询到相关记录";

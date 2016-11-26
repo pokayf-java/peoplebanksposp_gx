@@ -41,7 +41,7 @@ public class MonQueryBusiness {
 		if (null != bankInfoList && bankInfoList.size() > 0) {
 			for (BankInfo bankInfo : bankInfoList) {
 				String bankIp = bankInfo.getIpAddr().trim();
-				String tempPort = null ;
+				String tempPort = null;
 				String bankNo = bankInfo.getBankNo();
 				String bankName = bankInfo.getBankName();
 				if (null != bankIp && !bankIp.equals("")) {
@@ -49,36 +49,41 @@ public class MonQueryBusiness {
 						tempPort = bankInfo.getIpport().trim();
 					} else {
 						tempPort = cxfUtil.getPort();
-					} 
-					ICBPospSW service = cxfUtil.getCxfClient(ICBPospSW.class,
-							cxfUtil.getUrl(bankIp,tempPort));
+					}
+					ICBPospSW service = cxfUtil.getCxfClient(ICBPospSW.class, cxfUtil.getUrl(bankIp, tempPort));
 					cxfUtil.recieveTimeOutWrapper(service);
 					List<MoneyDataInfo> result = new ArrayList<MoneyDataInfo>();
 					try {
 						result = service.selectGZHData(mon);
 					} catch (Exception e) {
-						logger.info("银行号：" + bankNo+" ip:" + bankIp+" 连接服务器失败!");
+						String exceptionCauseInfo = e.getCause().getClass().toString();
+						logger.info("银行号：" + bankNo + " ip:" + bankIp + " 连接服务器失败!");
 						MoneyDataInfo moneyDataInfo = new MoneyDataInfo();
 						moneyDataInfo.setLocalBankName(bankName);
-						moneyDataInfo.setCauseInfo(1);
+						if (exceptionCauseInfo.contains("SocketTimeoutException")) {
+							moneyDataInfo.setCauseInfo(2);
+						}
+						if (exceptionCauseInfo.contains("ConnectException")) {
+							moneyDataInfo.setCauseInfo(1);
+						}
 						listAll.add(moneyDataInfo);
 						continue;
 					}
-					
+
 					if (null != result && result.size() > 0) {
 						for (MoneyDataInfo moneyDataInfo : result) {
 							moneyDataInfo.setCountNum(result.size());
 							moneyDataInfo.setLocalBankName(bankName);
 							listAll.add(moneyDataInfo);
 						}
-						logger.info("银行号：" + bankNo+" ip:" + bankIp + " 共计: " + result.size());
+						logger.info("银行号：" + bankNo + " ip:" + bankIp + " 共计: " + result.size());
 					} else {
 						MoneyDataInfo moneyDataInfo = new MoneyDataInfo();
 						moneyDataInfo.setLocalBankName(bankName);
 						moneyDataInfo.setCountNum(0);
 						moneyDataInfo.setCauseInfo(3);
 						listAll.add(moneyDataInfo);
-						logger.info("银行号：" + bankNo+" ip:" + bankIp + " 共计: 0");
+						logger.info("银行号：" + bankNo + " ip:" + bankIp + " 共计: 0");
 					}
 				} else {
 					logger.info("银行号：" + bankNo + " 未配置前置机IP");
