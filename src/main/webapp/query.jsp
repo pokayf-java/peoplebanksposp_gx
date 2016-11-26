@@ -39,6 +39,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var dealNo = (document.getElementById("dealNo").value).replace(/\s+/g,""); 
 			document.getElementById("dealNo").value = dealNo;
 	  	 	var errInfo = document.getElementById("errorInfo");
+	  	 	var bannerDiv = document.getElementById("bannerDiv");
+  	 		var form =  document.getElementById("form");
 			if(dealNo == ""){
 				errInfo.innerHTML = "<font style='color:red; font-size:12px;'>冠字号码不能为空，请输入冠字号！</font>";
 				document.getElementById("dealNo").focus();
@@ -190,9 +192,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  	 			
 			  	 		}
 			  	 		
-			  	 		var bannerDiv = document.getElementById("bannerDiv");
-			  	 		var form =  document.getElementById("form");
-			  	 		
 			  	 		if(contentStr == ""){
 			  	 			resultDiv.innerHTML = "<font style='color:#0000FF; font-size:25px;'>对不起，您要查找的冠字号码不存在！</font>";
 			  	 			searchCountInfoDiv.innerHTML = "<div style='border:1px solid #9db3c5;width:90%;height:300px;overflow-x:hidden;overflow-y:scroll' id='contentDiv2'><table class='t2'  id='contentValue2'>"
@@ -277,6 +276,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							var countNumTmp = resultStrLength - infoListSize; 
 							errInfo.innerHTML = "<font style='color:#999999; font-size:13px;'>系统帮您查找到</font>"+"<font style='color:#0000FF; font-size:20px;'>"+countNumTmp+"</font>"+"<font style='color:#999999; font-size:13px;'>条相关记录</font>";
 						}else{
+							bannerDiv.style.height = "550px";
 							resultDiv.innerHTML = "<font style='color:#0000FF; font-size:25px;'>对不起，您要查找的冠字号码不存在！</font>";
 							resultDiv.style.display = 'block';
 							document.getElementById("search").disabled = false;
@@ -286,8 +286,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	 	 	}); 
 			}
 		}
-		
-		
  		$(document).keyup(function(event){
 		  if(event.keyCode ==13){
 			searchResult();
