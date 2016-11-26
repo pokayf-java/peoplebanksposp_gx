@@ -14,7 +14,7 @@ public class Log4jFormatHTMLLayout  extends HTMLLayout {
 	protected final int BUF_SIZE = 256;
 	protected final int MAX_CAPACITY = 1024;
 	private static String TRACE_PREFIX = "<br>&nbsp;&nbsp;&nbsp;&nbsp;";
-	private String title = "冠字号码信息管理系统日志记录";
+	private String title = "人民币冠字号码查询信息管理系统V3.0";
 	private StringBuffer sbuf = new StringBuffer(BUF_SIZE);
 	private boolean locationInfo = true;
 	
