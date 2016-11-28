@@ -104,7 +104,6 @@ public class PayOrderService extends BaseService<PayOrder, PayOrderPK> {
 		return (StockBag) baseDao.findUnique(hql, map);
 
 	}
-	
 	/**
 	 * 查询劵种，劵别
 	 * 

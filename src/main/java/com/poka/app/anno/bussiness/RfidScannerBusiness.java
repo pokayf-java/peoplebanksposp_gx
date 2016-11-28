@@ -66,6 +66,8 @@ public class RfidScannerBusiness {
 			String msg = payOrder.getMsg();
 			String sourceId = payOrder.getSourceId();
 			String fromUnitId = payOrder.getUnitId();
+			//存放的库房位置
+			String fromAreaCode = payOrder.getFromAreaCode();
 			if (tagId.length() == 20) {
 				switch (orderKind) {
 				case 1:
@@ -119,6 +121,15 @@ public class RfidScannerBusiness {
 					return bankSend(orderId, tagId, provId, unitId);
 				case 12:
 					// 取款
+					return bankGet(orderId, tagId, provId);
+				case 16:
+					// 挪库处理
+					return moveArea(orderId, tagId, provId, unitId, fromAreaCode);
+				case 17:
+					// 入库复核
+					return bankGet(orderId, tagId, provId);
+				case 18:
+					// 库房预出库
 					return bankGet(orderId, tagId, provId);
 				default:
 					return "UnknownError";
@@ -177,8 +188,6 @@ public class RfidScannerBusiness {
 	/**
 	 * 清分出库
 	 * 
-	 * 
-	 * 
 	 * @return 处理结果
 	 */
 	private String clearingSend(String orderId, String tagId, String provId, String unitId) {
@@ -210,11 +219,47 @@ public class RfidScannerBusiness {
 			}
 		}
 	}
+	
+	/**
+	 * 挪库处理
+	 * 
+	 * @return 处理结果
+	 */
+	private String moveArea(String orderId, String tagId, String provId, String unitId, String fromAreaCode) {
+
+		boolean bagsCheckFlag = payOrderService.getBagsCheckFlag(orderId, tagId, provId, unitId, true);
+		if (bagsCheckFlag) {
+			return "BagCodeAlreadyChecked";
+		} else {
+			StockBag stockBag = payOrderService.getCurrencyIdKindForStock(tagId, provId, unitId);
+			if (null != stockBag) {
+				String areaCode = stockBag.getAreaCode();
+				if(null !=fromAreaCode && !"".equals(fromAreaCode) && null !=areaCode && !"".equals(areaCode)) {
+					if(areaCode.equals(fromAreaCode)){
+						Integer currencyKind = stockBag.getCurrencyKind();
+						String currencyId = stockBag.getCurrencyId();
+						boolean insertBagsCheckFlag = bagsCheckService.insertBagsCheckFlag(orderId, tagId, currencyId,
+								currencyKind, provId, unitId, false, null);
+						if (insertBagsCheckFlag) {
+							return "Success";
+						} else {
+							return "UnknownError";
+						}
+					} else {
+						return "MoveAreaError";
+					}
+				} else {
+					return "UnknownError";
+				}
+			} else {
+				return "BagIsNotInStock";
+			}
+		}
+		
+	}
 
 	/**
 	 * 清分实物接收
-	 * 
-	 * 
 	 * 
 	 * @return 处理结果
 	 */
