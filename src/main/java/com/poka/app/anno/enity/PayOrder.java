@@ -40,6 +40,7 @@ public class PayOrder implements Serializable {
 	private String downloadUserId;
 	private String msg;
 	private String provUnitName;
+	private String fromAreaCode;
 	
 	
 @Override
@@ -236,6 +237,15 @@ public class PayOrder implements Serializable {
 	}
 	public void setProvUnitName(String provUnitName) {
 		this.provUnitName = provUnitName;
+	}
+	
+	@Column(name = "fromAreaCode",length=20)
+	public String getFromAreaCode() {
+		return fromAreaCode;
+	}
+
+	public void setFromAreaCode(String fromAreaCode) {
+		this.fromAreaCode = fromAreaCode;
 	}
 
 }
