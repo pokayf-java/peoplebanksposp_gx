@@ -22,6 +22,7 @@ public class StockBag implements Serializable {
 	private String orderId;
 	private String currencyId;
 	private Integer currencyKind;
+	private String areaCode;
 	
 	@Id
 	@Column(name = "DID")
@@ -79,6 +80,14 @@ public class StockBag implements Serializable {
 	}
 	public void setCurrencyKind(Integer currencyKind) {
 		this.currencyKind = currencyKind;
+	}
+	
+	@Column(name = "AREACODE",length=10)
+	public String getAreaCode() {
+		return areaCode;
+	}
+	public void setAreaCode(String areaCode) {
+		this.areaCode = areaCode;
 	}
 	
 }
